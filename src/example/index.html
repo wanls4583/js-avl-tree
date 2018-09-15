@@ -1,0 +1,18 @@
+<html>
+
+<head>
+    <meta charset="UTF-8"></meta>
+    <script type="text/javascript" src="../avl_tree.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+    var tree = new AVLTree();
+    for (var i = 1; i <= 1048576; i++) {
+        tree.insert(i, 'data' + i);
+    }
+    console.log(tree.root);
+    </script>
+</body>
+
+</html>

@@ -7,11 +7,38 @@
 
 <body>
     <script type="text/javascript">
-    var tree = new AVLTree();
-    for (var i = 1; i <= 1048576; i++) {
-        tree.insert(i, 'data' + i);
+    function testInsert() {
+        var tree = new AVLTree();
+        var size = 100000;
+        for (var i = 1; i <= size; i++) {
+            tree.insert(i, 'data_' + i);
+        }
+        console.log('testInsert', tree.root);
+        console.log('----------------------------------------');
     }
-    console.log(tree.root);
+
+    function testDelete() {
+        var tree = new AVLTree();
+        var size = 100000;
+        for (var i = 1; i <= size; i++) {
+            tree.insert(i, 'data_' + i);
+        }
+        var retains = [];
+        //只保留4个随机数目
+        for (var i = 0; i < 4; i++) {
+            retains.push((Math.random() * size) >> 0);
+        }
+        console.log('retains', retains);
+        for (var i = 1; i <= size; i++) {
+            if (retains.indexOf(i) == -1) {
+                tree.delete(i);
+            }
+        }
+        console.log('testDelete', tree.root);
+        console.log('----------------------------------------');
+    }
+    testInsert();
+    testDelete();
     </script>
 </body>
 

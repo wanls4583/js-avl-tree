@@ -8,18 +8,20 @@
 <body>
     <script type="text/javascript">
     function testInsert() {
+        console.log('%ctestInsert', 'color:red');
         var tree = new AVLTree();
-        var size = 100000;
+        var size = 10000;
         for (var i = 1; i <= size; i++) {
             tree.insert(i, 'data_' + i);
         }
-        console.log('testInsert', tree.root);
+        console.log(tree.root);
         console.log('----------------------------------------');
     }
 
     function testDelete() {
+        console.log('%ctestDelete', 'color:red');
         var tree = new AVLTree();
-        var size = 100000;
+        var size = 10000;
         for (var i = 1; i <= size; i++) {
             tree.insert(i, 'data_' + i);
         }
@@ -34,26 +36,50 @@
                 tree.delete(i);
             }
         }
-        console.log('testDelete', tree.root);
+        console.log(tree.root);
         console.log('----------------------------------------');
     }
 
     function testSeach() {
+        console.log('%ctestSeach', 'color:red');
         var tree = new AVLTree();
-        var size = 100000;
+        var size = 10000;
         for (var i = 1; i <= size; i++) {
             tree.insert(i, 'data_' + i);
         }
-        console.log('testSeach');
         for (var i = 0; i < 4; i++) {
             var tmp = (Math.random() * size) >> 0;
             console.log('key', tmp, tree.search(tmp));
         }
         console.log('----------------------------------------');
     }
+
+    function testPreNext() {
+        console.log('%ctestPreNext', 'color:red');
+        var tree = new AVLTree();
+        var size = 10000;
+        for (var i = 1; i <= size; i++) {
+            tree.insert(i, 'data_' + i);
+        }
+        var tmp = (Math.random() * size) >> 0;
+        var first = tree.search(tmp);
+        last = first;
+        console.log('next');
+        for(var i=0; first && i<5; i++){
+            console.log(first.key);
+            first = first.next;
+        }
+        console.log('pre');
+        for(var i=0; last && i<5; i++){
+            console.log(last.key);
+            last = last.pre;
+        }
+        console.log('----------------------------------------');
+    }
     testInsert();
     testDelete();
     testSeach();
+    testPreNext();
     </script>
 </body>
 

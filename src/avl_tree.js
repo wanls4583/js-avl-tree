@@ -5,6 +5,8 @@ class AVLNode {
         this.data = data;
         this.lChild = null; //左子树
         this.rChild = null; //右子树
+        this.pre = null; //中序前一个节点
+        this.next = null; //中序后一个节点
         this.pNode = null; //父节点
         this.height = 0; //节点的高度
     }
@@ -75,8 +77,17 @@ class AVLTree {
                 node.pNode = root;
             }
         }
+        //生成中序遍历前后件关系
+        if(!node.next && root.key > node.key){
+            node.next = root;
+            root.pre = node;
+        }else if(!node.pre && root.key < node.key){
+            node.pre = root;
+            root.next = node;
+        }
         //更新节点的高度
         this._setHeight(root);
+
         return true;
     }
     /**
@@ -102,31 +113,18 @@ class AVLTree {
                     this._setHeight(root.pNode);
                 }
                 return root;
-            } else if (root.lChild && !root.rChild) { //没有右子树
+            } else if (!root.lChild || !root.rChild) { //没有右子树或者没有左子树
+                var child = root.lChild || root.rChild;
             	if(this.root == root){
-            		this.root = root.lChild;
+            		this.root = child;
             		this.root.pNode = null;
             	}else{
             		if(root.pNode.lChild == root){
-            			root.pNode.lChild = root.lChild;
+            			root.pNode.lChild = child;
             		}else{
-            			root.pNode.rChild = root.lChild;
+            			root.pNode.rChild = child;
             		}
-        			root.lChild.pNode = root.pNode;
-	            	this._setHeight(root.pNode);
-            	}
-            	return root;
-            } else if (root.rChild && !root.lChild) { //没有左子树
-            	if(this.root == root){
-            		this.root = root.rChild;
-            		this.root.pNode = null;
-            	}else{
-            		if(root.pNode.lChild == root){
-            			root.pNode.lChild = root.rChild;
-            		}else{
-            			root.pNode.rChild = root.rChild;
-            		}
-        			root.rChild.pNode = root.pNode;
+        			child.pNode = root.pNode;
 	            	this._setHeight(root.pNode);
             	}
             	return root;

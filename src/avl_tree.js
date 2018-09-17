@@ -37,51 +37,13 @@ class AVLTree {
     delete(key) {
         return this._delete(this.root, key);
     }
-    //左旋转
-    _lRotate(node) {
-        var rc = node.rChild;
-        rc.pNode = node.pNode;
-        node.rChild = rc.lChild;
-        rc.lChild && (rc.lChild.pNode = node);
-        rc.lChild = node;
-        if (node == this.root) {
-            this.root = rc;
-        } else if (node.pNode) {
-            if (node.pNode.lChild == node) {
-                node.pNode.lChild = rc;
-            } else {
-                node.pNode.rChild = rc;
-            }
-        }
-        node.pNode = rc;
-    }
-    //右旋转
-    _rRotate(node) {
-        var lc = node.lChild;
-        lc.pNode = node.pNode;
-        node.lChild = lc.rChild;
-        lc.rChild && (lc.rChild.pNode = node);
-        lc.rChild = node;
-        if (node == this.root) {
-            this.root = lc;
-        } else if (node.pNode) {
-            if (node.pNode.lChild == node) {
-                node.pNode.lChild = lc;
-            } else {
-                node.pNode.rChild = lc;
-            }
-        }
-        node.pNode = lc;
-    }
-    //先左旋转，再右旋转
-    _lrRotate(node) {
-        this._lRotate(node.lChild);
-        return this._rRotate(node);
-    }
-    //先右旋转，再左旋转
-    _rlRotate(node) {
-        this._rRotate(node.rChild);
-        return this._lRotate(node);
+    /**
+     * 查找节点
+     * @param  {Type}    key 需要查找的节点的key
+     * @return {AVLNode}     查找结果
+     */
+    search(key) {
+        return this._search(this.root, key);
     }
     /**
      * 删除节点
@@ -214,6 +176,70 @@ class AVLTree {
             this._checkBalance(root);
             return result;
         }
+    }
+    /**
+     * 删除节点
+     * @param  {AVLNode} root   树的根节点 
+     * @param  {[type]}  key    待查找的节点的key
+     * @return {AVLNode}        查找结果
+     */
+    _search(root, key) {
+        if(!root){
+            return false;
+        }
+        if(root.key == key){
+            return root;
+        }else if(root.key > key){
+            return this._search(root.lChild, key);
+        }else {
+            return this._search(root.rChild, key);
+        }
+    }
+        //左旋转
+    _lRotate(node) {
+        var rc = node.rChild;
+        rc.pNode = node.pNode;
+        node.rChild = rc.lChild;
+        rc.lChild && (rc.lChild.pNode = node);
+        rc.lChild = node;
+        if (node == this.root) {
+            this.root = rc;
+        } else if (node.pNode) {
+            if (node.pNode.lChild == node) {
+                node.pNode.lChild = rc;
+            } else {
+                node.pNode.rChild = rc;
+            }
+        }
+        node.pNode = rc;
+    }
+    //右旋转
+    _rRotate(node) {
+        var lc = node.lChild;
+        lc.pNode = node.pNode;
+        node.lChild = lc.rChild;
+        lc.rChild && (lc.rChild.pNode = node);
+        lc.rChild = node;
+        if (node == this.root) {
+            this.root = lc;
+        } else if (node.pNode) {
+            if (node.pNode.lChild == node) {
+                node.pNode.lChild = lc;
+            } else {
+                node.pNode.rChild = lc;
+            }
+        }
+        node.pNode = lc;
+    }
+    //先左旋转，再右旋转
+    _lrRotate(node) {
+        this._lRotate(node.lChild);
+        return this._rRotate(node);
+    }
+    //先右旋转，再左旋转
+    _rlRotate(node) {
+        this._rRotate(node.rChild);
+        return this._lRotate(node);
     }
     /**
      * 交换两个节点

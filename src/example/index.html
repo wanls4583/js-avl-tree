@@ -37,8 +37,23 @@
         console.log('testDelete', tree.root);
         console.log('----------------------------------------');
     }
+
+    function testSeach() {
+        var tree = new AVLTree();
+        var size = 100000;
+        for (var i = 1; i <= size; i++) {
+            tree.insert(i, 'data_' + i);
+        }
+        console.log('testSeach');
+        for (var i = 0; i < 4; i++) {
+            var tmp = (Math.random() * size) >> 0;
+            console.log('key', tmp, tree.search(tmp));
+        }
+        console.log('----------------------------------------');
+    }
     testInsert();
     testDelete();
+    testSeach();
     </script>
 </body>
 

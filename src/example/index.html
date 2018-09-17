@@ -7,6 +7,12 @@
 
 <body>
     <script type="text/javascript">
+    var tree = new AVLTree();
+    var size = 10000;
+    for (var i = 1; i <= size; i++) {
+        tree.insert(i, 'data_' + i);
+    }
+
     function testInsert() {
         console.log('%ctestInsert', 'color:red');
         var tree = new AVLTree();
@@ -64,18 +70,37 @@
         var tmp = (Math.random() * size) >> 0;
         var first = tree.search(tmp);
         last = first;
+        tmp = [];
+
         console.log('next');
-        for(var i=0; first && i<5; i++){
-            console.log(first.key);
+        for (var i = 0; first && i < 5; i++) {
+            tmp.push(first.key);
             first = first.next;
         }
+        console.log(tmp);
+
         console.log('pre');
-        for(var i=0; last && i<5; i++){
-            console.log(last.key);
+        tmp = [];
+        for (var i = 0; last && i < 5; i++) {
+            tmp.push(last.key);
             last = last.pre;
         }
+        console.log(tmp);
+
+        var tmp = (Math.random() * size) >> 0;
+        console.log('after delete', tmp);
+        tree.delete(tmp);
+        var node = tree.search(tmp + 1);
+        tmp = [];
+        tmp.push(node.pre && node.pre.pre && node.pre.pre.key);
+        tmp.push(node.pre && node.pre.key);
+        tmp.push(node.key);
+        tmp.push(node.next && node.next.key);
+        tmp.push(node.next && node.next.next && node.next.next.key);
+        console.log(tmp);
         console.log('----------------------------------------');
     }
+    
     testInsert();
     testDelete();
     testSeach();

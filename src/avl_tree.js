@@ -37,7 +37,14 @@ class AVLTree {
      * @return {AVLNode}     被删除后的点
      */
     delete(key) {
-        return this._delete(this.root, key);
+        var result = this._delete(this.root, key);
+        if(result.pre){
+            result.pre.next = result.next;
+        }
+        if(result.next){
+            result.next.pre = result.pre;
+        }
+        return result;
     }
     /**
      * 查找节点

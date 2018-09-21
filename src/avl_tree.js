@@ -55,8 +55,8 @@ class AVLTree {
         return this._search(this.root, key);
     }
     /**
-     * 删除节点
-     * @param  {AVLNode} root 树的根节点
+     * 插入节点
+     * @param  {AVLNode} root 子树的根节点
      * @param  {AVLNode} node 待插入的节点
      * @return {Boolean}      插入是否成功
      */
@@ -99,7 +99,7 @@ class AVLTree {
     }
     /**
      * 删除节点
-     * @param  {AVLNode} root 	树的根节点 
+     * @param  {AVLNode} root 	子树的根节点 
      * @param  {[type]}	 key  	待删除的节点的key
      * @return {Boolean}      	是否删除成功
      */
@@ -183,8 +183,8 @@ class AVLTree {
         }
     }
     /**
-     * 删除节点
-     * @param  {AVLNode} root   树的根节点 
+     * 搜索节点
+     * @param  {AVLNode} root   子树的根节点 
      * @param  {[type]}  key    待查找的节点的key
      * @return {AVLNode}        查找结果
      */
@@ -200,7 +200,7 @@ class AVLTree {
             return this._search(root.rChild, key);
         }
     }
-        //左旋转
+    //左旋转
     _lRotate(node) {
         var rc = node.rChild;
         rc.pNode = node.pNode;

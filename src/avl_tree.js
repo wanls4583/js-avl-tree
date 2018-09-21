@@ -33,7 +33,7 @@ class AVLTree {
     }
     /**
      * 删除节点
-     * @param  {Type}	 key 需要删除的节点的key
+     * @param  {[type]}	 key 需要删除的节点的key
      * @return {AVLNode}     被删除后的点
      */
     delete(key) {
@@ -48,7 +48,7 @@ class AVLTree {
     }
     /**
      * 查找节点
-     * @param  {Type}    key 需要查找的节点的key
+     * @param  {[type]}  key 需要查找的节点的key
      * @return {AVLNode}     查找结果
      */
     search(key) {

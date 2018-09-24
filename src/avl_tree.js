@@ -1,8 +1,8 @@
 //节点
 class AVLNode {
     constructor(key, data) {
-        this.key = key;
-        this.data = data;
+        this.key = key; //查找关键字
+        this.data = data; //节点数据
         this.lChild = null; //左子树
         this.rChild = null; //右子树
         this.pre = null; //中序前一个节点

@@ -1,5 +1,5 @@
 {
-  "name": "js-mod-loader",
+  "name": "js-avl-tree",
   "version": "1.0.0",
   "description": "A avl-tree by javascript",
   "main": "dist/avl.min.js",

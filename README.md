@@ -23,6 +23,8 @@ npm install js-avl-tree
 
 请查看[**`example`**](https://github.com/wanls4583/js-avl-tree/tree/master/src/example)
 
+[**`online demo`**](https://blog.lisong.hn.cn/code/example/js-avl-tree/src/example/index.html)
+
 ## AVLNode
 
 ```javascript

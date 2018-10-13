@@ -17,12 +17,14 @@
 
     function testInsert() {
         console.log('%ctestInsert', 'color:red');
+        var t = Date.now();
         var tree = new AVLTree();
-        var size = 10000;
+        var size = 100000;
         for (var i = 1; i <= size; i++) {
             tree.insert(i, 'data_' + i);
         }
         console.log(tree.root);
+        console.log('cost', Date.now() - t);
         console.log('----------------------------------------');
     }
 

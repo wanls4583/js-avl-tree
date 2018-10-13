@@ -16,6 +16,8 @@ function AVLNode(key, data) {
  */
 function AVLTree(compartor) {
     this.root = null;
+    this.first = null; //最小的节点
+    this.last = null; //最大的节点
     this.compartor = compartor || function() { return 0; };
 }
 
@@ -31,9 +33,20 @@ _proto.insert = function(key, data) {
     var node = new AVLNode(key, data);
     if (!this.root) {
         this.root = node;
+        this.first = this.root;
+        this.last = this.root;
         return;
     }
-    return this._insert(this.root, node);
+    var result = this._insert(this.root, node);
+    if(result){
+        if(this.first.key > key || this.first.key == key && this.compartor(this.first.data, data) > 0){
+            this.first = node;
+        }
+        if(this.last.key < key || this.last.key == key && this.compartor(this.last.data, data) < 0){
+            this.last = node;
+        }
+    }
+    return result;
 }
 
 /**
@@ -46,6 +59,12 @@ _proto.delete = function(key) {
     var _result = this._delete(this.root, key);
     while (_result) {
         result.push(_result);
+        if(this.first.key == key){
+            this.first = _result.pre || _result.next;
+        }
+        if(this.last.key == key){
+            this.last = _result.next || _result.pre;
+        }
         if (_result.pre) {
             _result.pre.next = _result.next;
         }
@@ -53,6 +72,10 @@ _proto.delete = function(key) {
             _result.next.pre = _result.pre;
         }
         _result = this._delete(this.root, key);
+    }
+    if(!this.root) {
+        this.first = null;
+        this.last = null;
     }
     if (result.length == 1) {
         return result[0];

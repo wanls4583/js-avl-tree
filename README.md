@@ -6,6 +6,7 @@
 
 - [**`安装`**](#安装)
 - [**`案例`**](#案例)
+- [**`AVLTree`**](#AVLTree)
 - [**`AVLNode`**](#AVLNode)
 - [**`insert`**](#insert)
 - [**`delete`**](#delete)
@@ -24,6 +25,16 @@ npm install js-avl-tree
 请查看[**`example`**](https://github.com/wanls4583/js-avl-tree/tree/master/src/example)
 
 [**`online demo`**](https://blog.lisong.hn.cn/code/example/js-avl-tree/src/example/index.html)
+
+## AVLTree
+
+```javascript
+/**
+ * 二叉平衡树
+ * @param {Function} compartor 重复数据的比较器
+ */
+function AVLTree(compartor)
+```
 
 ## AVLNode
 

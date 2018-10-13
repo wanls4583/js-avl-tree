@@ -1,7 +1,8 @@
 <html>
 
 <head>
-    <meta charset="UTF-8"></meta>
+    <meta charset="UTF-8">
+    </meta>
     <script type="text/javascript" src="../avl.js"></script>
 </head>
 
@@ -102,8 +103,32 @@
         console.log('----------------------------------------');
     }
 
+    function testRepeat() {
+        console.log('%ctestRepeat', 'color:red');
+        var tree = new AVLTree(function(arg1, arg2) { return arg1 - arg2 });
+        for (var i = 1; i < 20; i++) {
+            tree.insert(i, i);
+        }
+        for (var i = 1; i < 20; i++) {
+            tree.insert(i, i + 1);
+        }
+        console.log(tree.root);
+
+        var tmp = (20 * Math.random()) >> 0 + 1;
+        console.log('search ',tmp)
+        console.log(tree.search(tmp));
+
+        console.log('delete ',tmp)
+        console.log(tree.delete(tmp));
+
+        console.log(tree.root);
+
+        console.log('----------------------------------------');
+    }
+
     //draw tree
     function draw() {
+        console.log('%cdraw', 'color:red');
         var tree = new AVLTree();
         var size = 20;
         for (var i = 1; i <= size; i++) {
@@ -117,6 +142,7 @@
         ctx.font = "12px bold";
         ctx.textAlign = 'center';
         _draw(tree.root);
+        console.log('----------------------------------------');
 
         function _draw(node) {
             if (!node) {
@@ -165,6 +191,7 @@
     testDelete();
     testSeach();
     testPreNext();
+    testRepeat();
     draw();
     </script>
 </body>

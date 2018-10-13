@@ -1,6 +1,6 @@
 {
   "name": "js-avl-tree",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A avl-tree by javascript",
   "main": "dist/avl.min.js",
   "repository": {

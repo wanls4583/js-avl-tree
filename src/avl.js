@@ -10,9 +10,13 @@ function AVLNode(key, data) {
     this.height = 0; //节点的高度
 }
 
-//二叉平衡树
-function AVLTree() {
+/**
+ * 二叉平衡树
+ * @param {Function} compartor 重复数据的比较器
+ */
+function AVLTree(compartor) {
     this.root = null;
+    this.compartor = compartor || function() { return 0; };
 }
 
 var _proto = AVLTree.prototype;
@@ -35,26 +39,51 @@ _proto.insert = function(key, data) {
 /**
  * 删除节点
  * @param  {[type]}  key 需要删除的节点的key
- * @return {AVLNode}     被删除后的点
+ * @return {Array|AVLNode}     被删除后的点
  */
 _proto.delete = function(key) {
-    var result = this._delete(this.root, key);
-    if (result.pre) {
-        result.pre.next = result.next;
+    var result = [];
+    var _result = this._delete(this.root, key);
+    while (_result) {
+        result.push(_result);
+        if (_result.pre) {
+            _result.pre.next = _result.next;
+        }
+        if (_result.next) {
+            _result.next.pre = _result.pre;
+        }
+        _result = this._delete(this.root, key);
     }
-    if (result.next) {
-        result.next.pre = result.pre;
+    if (result.length == 1) {
+        return result[0];
+    } else if (result.length) {
+        return result;
     }
-    return result;
+    return false;
 }
 
 /**
  * 查找节点
  * @param  {[type]}  key 需要查找的节点的key
- * @return {AVLNode}     查找结果
+ * @return {Array|AVLNode}     查找结果
  */
 _proto.search = function(key) {
-    return this._search(this.root, key);
+    var result = [];
+    var _result = this._search(this.root, key);
+    while (_result) {
+        result.push(_result);
+        if (_result.next && _result.next.key == _result.key) {
+            _result = _result.next;
+        } else {
+            break;
+        }
+    }
+    if (result.length == 1) {
+        return result[0];
+    } else if (result.length) {
+        return result;
+    }
+    return false;
 }
 
 /**
@@ -64,9 +93,9 @@ _proto.search = function(key) {
  * @return {Boolean}      插入是否成功
  */
 _proto._insert = function(root, node) {
-    if (root.key == node.key) {
+    if (root.key == node.key && this.compartor(root.data, node.data) == 0) {
         return false;
-    } else if (root.key > node.key) { //插入左子树
+    } else if (root.key > node.key || root.key == node.key && this.compartor(root.data, node.data) > 0) { //插入左子树
         if (root.lChild) { //在左子树上递归插入
             if (!this._insert(root.lChild, node)) {
                 return false;
@@ -88,10 +117,10 @@ _proto._insert = function(root, node) {
         }
     }
     //生成中序遍历前后件关系
-    if (!node.next && root.key > node.key) {
+    if (!node.next && (root.key > node.key || root.key == node.key && this.compartor(root.data, node.data) > 0)) {
         node.next = root;
         root.pre = node;
-    } else if (!node.pre && root.key < node.key) {
+    } else if (!node.pre && (root.key < node.key || root.key == node.key && this.compartor(root.data, node.data) < 0)) {
         node.pre = root;
         root.next = node;
     }

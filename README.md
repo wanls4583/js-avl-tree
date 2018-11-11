@@ -31,25 +31,22 @@ npm install js-avl-tree
 ```javascript
 /**
  * 二叉平衡树
- * @param {Function} compartor 重复数据的比较器
+ * @param {Function} compartor 关键字的比较器
+ * @param {Boolean}  ifMerge   是否将插入的数据合并到节点
  */
-function AVLTree(compartor)
+function AVLTree(compartor, ifMerge)
 ```
 
 ## AVLNode
 
 ```javascript
-//节点
-function AVLNode(key, data) {
-    this.key = key; //查找关键字
-    this.data = data; //节点数据
-    this.lChild = null; //左子树
-    this.rChild = null; //右子树
-    this.pre = null; //中序前一个节点
-    this.next = null; //中序后一个节点
-    this.pNode = null; //父节点
-    this.height = 0; //节点的高度
-}
+/**
+ * 插入节点
+ * @param  {[type]} key  节点的key
+ * @param  {[type]} data 节点的数据
+ * @return {Boolean}     是否将插入的数据合并到节点
+ */
+function AVLNode(key, data, ifMerge)
 ```
 
 ## insert
@@ -61,7 +58,7 @@ function AVLNode(key, data) {
  * @param  {[type]} data 节点的数据
  * @return {Boolean}     插入是否成功
  */
-insert = function(key, data)
+_proto.insert = function(key, data)
 ```
 
 ## delete
@@ -69,10 +66,11 @@ insert = function(key, data)
 ```javascript
 /**
  * 删除节点
- * @param  {[type]}  key 需要删除的节点的key
- * @return {AVLNode}     被删除后的点
+ * @param  {[type]}   key     需要删除的节点的key
+ * @param  {Boolean}  ifAll   是否删除所有符合的结点（默认只删除第一个查找到的结果）
+ * @return {Array|AVLNode}    被删除后的点
  */
-delete = function(key)
+_proto.delete = function(key, ifAll) 
 ```
 
 ## search
@@ -80,10 +78,11 @@ delete = function(key)
 ```javascript
 /**
  * 查找节点
- * @param  {[type]}  key 需要查找的节点的key
- * @return {AVLNode}     查找结果
+ * @param  {[type]}   key     需要查找的节点的key
+ * @param  {Boolean}  ifAll   是否返回所有结果（默认只返回第一个查找到的结果）
+ * @return {Array|AVLNode}    查找结果
  */
-search = function(key)
+_proto.search = function(key, ifAll)
 ```
 
 ## 贡献
